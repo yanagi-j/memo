@@ -1,0 +1,204 @@
+■MuleSoft
+
+JDBC Driver download
+https://www.databricks.com/spark/jdbc-drivers-archive
+DatabricksJDBC42-2.6.33.1055.zip
++DatabricksJDBC42.jar
+
+#(simba)Databriccks JDBC Driver
+#https://docs.databricks.com/dev-tools/dbeaver.html
+#com.simba.spark.jdbc4.Driver
+#SparkJDBC41.jar
+#SparkJDBC42.jar
+com.simba.spark.jdbc.Driver
+
+Connecting Databricks SQL Database To MuleSoft
+https://apisero.com/connecting-databricks-sql-database-to-mulesoft/
+
+com.databricks.client.jdbc.Driver
+Go to the link ? https://search.maven.org/artifact/com.databricks/databricks-jdbc/2.6.25-1/jar
+
+"Error trying to load driver" even though the JDBC driver dependency is added to application's pom.xml in Mule 4
+https://www.google.com/search?q=Mulesoft+pom.xml+jdbc&hl=ja&biw=1404&bih=815&ei=z6aRZLyuNY31-Qbbh5NI&ved=0ahUKEwj80eW899H_AhWNet4KHdvDBAkQ4dUDCA8&uact=5&oq=Mulesoft+pom.xml+jdbc&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCAAQogQ6BQgAEIAEOgcIABAEEIAEOgQIABAeOgcIABATEIAEOgYIABAeEBM6CAgAEAgQHhATOgUIIRCgAToECCEQFUoECEEYAVC3CVj_fmCXgQFoAXAAeACAAXGIAZkIkgEEMTEuMZgBAKABAcABAQ&sclient=gws-wiz-serp
+
+データベース接続の設定
+汎用接続の設定
+https://docs.mulesoft.com/jp/db-connector/1.13/database-connector-connection
+
+一括操作の実行例 - Mule 4
+Bulk update
+https://docs.mulesoft.com/jp/db-connector/1.13/database-execute-bulk
+
+Databricks JDBC/ODBC 
+https://community.databricks.com/t5/data-engineering/databricks-jdbc-odbc-write-batch-size/m-p/10059
+rewriteBatchedStatements=true
+characterEncoding=utf8
+
+databricks/spark-redshift
+https://github.com/databricks/spark-redshift/issues/411
+
+Excel を使ってデータをDatabricks に移行したり、Databricks 上のデータを編集する方法
+https://www.cdata.com/jp/kb/tech/databricks-excel-trans.rst
+
+For Each スコープ
+https://docs.mulesoft.com/jp/mule-runtime/4.4/for-each-scope-concept
+XML や JSON など、Java 以外のコレクションの場合は、DataWeave 式を使用してデータを分割します。
+それには ?[Collection (コレクション)]? 項目を使用します。
+・サンプル XML
+・サンプルプロジェクト
+
+2つのFor文、繰り返し処理の使い分け
+https://esp-labo.com/muleloop/
+collection[% payload.id_table
+
+For Each Scope in Mule 4 with Detailed Explanation | Accumulating Values In a For Each https://youtu.be/3N_NeN1VrrQ?si=rl5p7aMUq0YRqxzY
+
+Mule 4 : 各スコープ | Foreach 内でのエラー処理とペイロードのキャプチャ |ミュールソフト https://youtu.be/ccE9hs1tY6c?si=SnvxTWDX7_VfcRUC ＜字幕あり＞
+
+Mulesoft 4.2 - Anypoint Studio - How to use for-each scope in mule project https://youtu.be/JIQB3Tvka-E?si=gS4PIqL8LEfVWxcd ＜字幕あり＞
+
+HTTP Request 操作の設定
+https://docs.mulesoft.com/jp/http-connector/1.7/http-request-ref
+クエリパラメータ（クエリストリング）GETメソッド
+URIパラメータ
+
+HTTP Listener ソースの設定 - Mule 4
+https://docs.mulesoft.com/jp/http-connector/1.7/http-listener-ref
+クエリパラメータ
+HttpRequestAttributes
+#[attributes.queryParams.module]
+
+設計指針
+クエリパラメータ：GETメソッド
+リクエストボディ/パス：POSTメソッド
+https://qiita.com/sakuraya/items/6f1030279a747bcce648
+
+Introduction & How to Use MFT Connector for MuleSoft to Transfer Files |... https://youtu.be/uBPwaaxJE8A?si=gqUjaX26nGU31YKs 
+
+CloudHub へのデプロイ
+https://docs.mulesoft.com/jp/runtime-manager/deploying-to-cloudhub
+
+http://myapplication.cloudhub.io
+
+https://docs.mulesoft.com/jp/cloudhub-2/ch2-deploy-shared-space
+
+DataWeave の概要
+https://docs.mulesoft.com/jp/mule-runtime/4.4/dataweave
+DataWeave クイックスタート（バージョン 7.3 または 7.2.3）
+https://docs.mulesoft.com/jp/dataweave/2.4/dataweave-quickstart
+グローバル設定
+https://docs.mulesoft.com/jp/mule-runtime/4.4/global-settings-configuration
+動的設定
+https://docs.mulesoft.com/jp/mule-sdk/1.1/static-dynamic-configs
+
+"#[attributes.queryParams.encoding]"
+ftp:connection username="#[ftpUser]" password="#[ftpPassword]"
+
+JDBC Connector
+https://docs.mulesoft.com/jp/jdbc-connector/0.3.9/
+→
+Database Connector 1.13 - Mule 4
+https://docs.mulesoft.com/jp/db-connector/1.13/
+Anypoint Studio を使用した Database Connector 1.13 の設定 - Mule 4
+https://docs.mulesoft.com/jp/db-connector/1.13/database-connector-studio
+
+[Database Config (データベース設定)]? ウィンドウの ?[Connection (接続)]? で、この設定に指定する接続種別を選択します。
+・Data Source Reference Connection (データソース参照接続)?
+・Derby Connection (Derby 接続)?
+・Generic Connection (汎用接続)
+
+External Functions Available to DataWeave
+https://docs.mulesoft.com/dataweave/2.4/dataweave-runtime-functions
+例: Mule 4.1.3 以前のプロパティ関数の使用
+<flow name="simple">
+  <logger message="#[p('http.port')]"/>
+</flow>
+
+Troubleshooting a Failing DataWeave Script
+https://docs.mulesoft.com/dataweave/2.4/dataweave-troubleshoot#null_arg_not_accepted
+
+
+Mule アプリケーションの開発
+https://docs.mulesoft.com/jp/mule-runtime/4.4/mule-app-dev
+
+Mulusoftとは？API連携を実現した事例を徹底解説します
+https://locked.jp/blog/what-is-mulusoft/
+
+MuleSoftで簡単なAPIを作成
+https://quanz.co.jp/blog/mulesoft/2659/
+
+
+■JSONツール
+Elasticsearch
+https://www.elastic.co/jp/downloads/elasticsearch
+Json→CSV変換
+
+csvkit 1.0.2
+https://csvkit.readthedocs.io/en/1.0.2/
+$ in2csv sample.json
+# pip install csvkit
+
+JSON to CSV
+https://apps.microsoft.com/detail/9n7wcz7bf54g?hl=ja-jp&gl=JP
+
+
+
+■公開鍵生成（gpg）
+
+ファイルを暗号化／復号するには（公開鍵暗号方式編）
+https://atmarkit.itmedia.co.jp/flinux/rensai/linuxtips/792cryptpubky.html
+
+GPGを使い始める備忘録
+https://www.fnifni.net/gpg%E3%82%92%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%82%8B%E5%82%99%E5%BF%98%E9%8C%B2/
+
+Windows 版 GnuPG 2.2.29 の出力の一部が文字化けする問題 (2) 
+https://blog.nanashinonozomi.com/2021/08/26/the-problem-that-part-of-the-output-of-gnupg-2-2-29-for-windows-is-garbled-2/
+TZ	JST-09 
+LANG	ja
+
+【令和最新版】PGP鍵の作り方から管理方法、Git Commitへの署名まで
+https://qiita.com/shun-shobon/items/a944416bebb6207016fb
+
+gnupg DOWNLOAD
+https://gnupg.org/download/
+
+ed25519/save/backup
+
+鍵指紋 フィンガープリント
+鍵ID   Username
+
+gpg --expert --full-gen-key xxx
+gpg --armor --export-secret-keys xxx --output xxx_backup.pem
+
+gpg -k 
+gpg -K 
+
+gpg --list-keys --keyid-format=long
+gpg --list-secret-keys --keyid-format=long
+
+
+
+■QlikSense
+Qlik Sense QlikView Qlikクラウドデータ統合ソリューション
+https://ba.agnieconsulting.com/media/tag/QlikSenseEnterprise
+
+QlikSense - 円グラフ プロパティ
+https://help.qlik.com/ja-JP/sense/August2022/Subsystems/Hub/Content/Sense_Hub/Visualizations/PieChart/pie-chart-properties-panel.htm
+
+QlikView - 円グラフ
+https://help.qlik.com/ja-JP/qlikview/May2023/Subsystems/Client/Content/QV_QlikView/Pie_Chart.htm
+チャートは、数値データをグラフィカルに表現したものです。既存のチャートを別の表示に切り替えるには、
+[チャートの種類] ([チャート プロパティ: 基本設定] ページ内) を変更します。
+通常、円グラフは 1 つの軸と 1 つの数式の間の関係を表示しますが、2 つの軸を使用することもあります。
+[ツール] メニューから [クイック チャート] ウィザードを選択し、新しい円グラフをすばやく作成できます。
+
+円グラフを右クリックすると、[円グラフ: オブジェクト メニュー] が表示されます。円グラフがアクティブな
+オブジェクトの場合、[オブジェクト] メニューからもアクセスできます。
+
+Qlik Senseでマップ分析【データを地図上に表示】
+https://knowledge.insight-lab.co.jp/qliksense/chart/map-analysis
+バブルサイズの設定は「データ」→「メジャー」内にあります。
+数値書式
+ゼロ値を含める
+
+
