@@ -159,23 +159,42 @@ LANG	ja
 【令和最新版】PGP鍵の作り方から管理方法、Git Commitへの署名まで
 https://qiita.com/shun-shobon/items/a944416bebb6207016fb
 
+GPGで主鍵と副鍵を作成する
+https://christina04.hatenablog.com/entry/create-gpg-master-key-and-subkey
+※テスト手順あり
+
 gnupg DOWNLOAD
 https://gnupg.org/download/
 
 ed25519/save/backup
 
 鍵指紋 フィンガープリント
-鍵ID   Username
+鍵ID   フィンガープリントの末尾16文字？
 
-gpg --expert --full-gen-key xxx
-gpg --armor --export-secret-keys xxx --output xxx_backup.pem
+主鍵の作成
+gpg --expert --full-gen-key 
+#gpg --armor --export-secret-keys <鍵指紋> --output xxx_backup.pem
+gpg --armor --export-secret-keys <鍵指紋> -o xxx_backup.pem
 
-gpg -k 
-gpg -K 
+gpg -k 秘密鍵
+gpg -K 公開鍵
 
 gpg --list-keys --keyid-format=long
 gpg --list-secret-keys --keyid-format=long
 
+PGP鍵を交換しました + 令和最新版のPGP鍵運用メモ
+https://blog.3qe.us/entry/2022/10/03/012420
+
+
+副鍵作成
+gpg --expert --edit-key <鍵指紋>
+gpg> addKey
+:
+gpg> save
+
+
+公開鍵エクスポート（pem）
+gpg --armor --export <鍵ID>
 
 
 ■QlikSense
