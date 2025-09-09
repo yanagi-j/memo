@@ -1,0 +1,179 @@
+■ 結論：Home.aspxを直接リネームするのは非推奨
+SharePoint Onlineでは、ページファイル（例：Home.aspx）のファイル名変更は可能ですが、そのページが「ホームページ」として設定されている場合は注意が必要です。リネームするとリンク切れやナビゲーションの不整合が起こる可能性があります。
+
+■ 現実的な代替手順
+① Home.aspx をコピーして Home1.aspx を作成
+「サイトページ」ライブラリで Home.aspx を選択
+
+「コピー」→「名前を付けて保存」で Home1.aspx を作成
+
+② Home1.aspx を編集・修正
+通常通り編集して発行
+
+③ Home1.aspx を新しいホームページに設定
+「サイトページ」ライブラリで Home1.aspx の「…」→「ホームページとして設定」を選択
+
+④ （必要に応じて）旧 Home.aspx を削除またはアーカイブ
+リンク切れが起きないように、リダイレクト設定やナビゲーションの更新を忘れずに
+
+■ Microsoft公式の手順はこちら：ホームページとして別のページを設定する方法
+https://support.microsoft.com/ja-jp/office/sharepoint-%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AE%E3%83%9B%E3%83%BC%E3%83%A0-%E3%83%9A%E3%83%BC%E3%82%B8%E3%81%AB%E5%88%A5%E3%81%AE%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B-35a5022c-f84a-455d-985e-c691ab5dfa17
+
+
+
+■前提条件
+PowerShellが使える環境（Windows推奨）
+
+SharePoint Online管理者権限
+
+PnP PowerShell モジュールのインストール
+
+powershell
+Install-Module PnP.PowerShell
+■ ステップ①：PnP PowerShellで接続
+powershell
+Connect-PnPOnline -Url "https://<yourtenant>.sharepoint.com/sites/<sitename>" -Interactive
+<yourtenant>：テナント名
+
+<sitename>：テンプレート化したいサイト名
+
+■ ステップ②：テンプレートの抽出（エクスポート）
+powershell
+Get-PnPProvisioningTemplate -Out "template.xml"
+template.xml にサイト構成（ページ、Webパーツ、リストなど）が保存されます
+
+必要に応じて XML を手動編集可能（例：不要なリストを削除）
+
+詳細な比較と解説は ふまじめSEの試行錯誤ブログ が参考になります
+https://laterabbit.net/sharepointonline-template-making-method-summary/
+
+■ ステップ③：新しいサイトへテンプレート適用
+新しいサイトを作成（GUIまたは PowerShell）
+
+接続先を変更：
+
+powershell
+Connect-PnPOnline -Url "https://<yourtenant>.sharepoint.com/sites/<newsite>" -Interactive
+テンプレートを適用：
+
+powershell
+Apply-PnPProvisioningTemplate -Path "template.xml"
+
+
+補足：テンプレートに含まれる内容
+含まれる要素	含まれない要素
+ページ構成（Webパーツ配置）	ページのコンテンツ（一部手動調整必要）
+リスト・ライブラリ構成	リストアイテム（データ）
+ナビゲーション設定	ユーザー権限（別途設定）
+
+
+
+
+PS C:\WINDOWS\system32> Install-Module PnP.PowerShell
+
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.208.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.207.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.206.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.205.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.204.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.202.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.201.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.127.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.122.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.101.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.24.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/Microsoft.PackageManagement.NuGetProvider-2.8.5.208.dll' から '' へダウンロードできません。
+PackageManagement\Install-PackageProvider : プロバイダー 'https://cdn.oneget.org/providers/nuget-2.8.5.208.package.swidtag' のブートストラップが失敗しました。
+発生場所 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7468 文字:21
++ ...     $null = PackageManagement\Install-PackageProvider -Name $script:N ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (https://cdn.one...package.swidtag:String) [Install-PackageProvider]、Exception
+    + FullyQualifiedErrorId : FailedProviderBootstrap,Microsoft.PowerShell.PackageManagement.Cmdlets.InstallPackageProvider
+ 
+PackageManagement\Import-PackageProvider : プロバイダー名 'NuGet' について、指定された検索条件に一致するものが見つかりませんでした。'Get-PackageProvider -ListAvailable' を使用して、このプロバイダーがシステム上に存在するか確
+認してください。
+発生場所 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7474 文字:21
++ ...     $null = PackageManagement\Import-PackageProvider -Name $script:Nu ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidData: (NuGet:String) [Import-PackageProvider]、Exception
+    + FullyQualifiedErrorId : NoMatchFoundForCriteria,Microsoft.PowerShell.PackageManagement.Cmdlets.ImportPackageProvider
+ 
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.208.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.207.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.206.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.205.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.204.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.202.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.201.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.127.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.122.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.101.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/nuget-2.8.5.24.package.swidtag' から '' へダウンロードできません。
+警告: URI 'https://onegetcdn.azureedge.net/providers/Microsoft.PackageManagement.NuGetProvider-2.8.5.208.dll' から '' へダウンロードできません。
+PackageManagement\Get-PackageProvider : プロバイダー 'https://cdn.oneget.org/providers/nuget-2.8.5.208.package.swidtag' のブートストラップが失敗しました。
+発生場所 C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1\PSModule.psm1:7478 文字:30
++ ... tProvider = PackageManagement\Get-PackageProvider -Name $script:NuGet ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (https://cdn.one...package.swidtag:String) [Get-PackageProvider]、Exception
+    + FullyQualifiedErrorId : FailedProviderBootstrap,Microsoft.PowerShell.PackageManagement.Cmdlets.GetPackageProvider
+ 
+Install-Module : NuGet ベースのリポジトリを操作するためには、NuGet プロバイダーが必要です。'2.8.5.201' 以降のバージョンの NuGet プロバイダーがインストールされていることを確認してください。
+発生場所 行:1 文字:1
++ Install-Module PnP.PowerShell
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Install-Module]、InvalidOperationException
+    + FullyQualifiedErrorId : CouldNotInstallNuGetProvider,Install-Module
+ 
+
+PS C:\WINDOWS\system32> 
+
+
+
+
+
+
+SharePoint Onlineで公開中のWebページをバックアップ、リストアする方法
+SharePoint Onlineで公開中のWebページをバックアップ・リストアするには、Microsoft 365の標準機能だけでは限界があるため、バージョン履歴の活用や外部ツールの導入がポイントになります。以下に代表的な方法を紹介します。
+
+■ 方法①：バージョン履歴を使った簡易バックアップ・復元
+SharePoint Onlineのページはバージョン履歴が自動的に保存されます。
+
+手順：
+「サイトのコンテンツ」→「サイトページ」ライブラリにアクセス
+
+対象ページの「…」→「バージョン履歴」をクリック
+
+過去のバージョンを選択して「復元」
+
+これは軽微な変更の巻き戻しには有効ですが、完全なバックアップには不十分です。
+
+■ 方法②：手動バックアップ（エクスポート）
+ページの内容を手動で保存する方法です。
+
+ページを開いて「編集」→HTMLやテキストをコピー
+
+画像やファイルは別途ダウンロード
+
+WordやOneNoteなどに保存しておく
+
+これは小規模サイトや一時的な保存には有効ですが、自動化や復元性には欠けます。
+
+■ 方法③：外部バックアップツールの活用
+企業や組織では、Arcserve、AvePoint、Veeamなどのバックアップツールを使うことで、SharePoint Onlineのページやライブラリを定期的にバックアップ・リストアできます。
+
+代表的な手順（Arcserveの場合）：
+管理画面で「SharePoint Onlineノード」を選択
+
+対象ページを選び「リストア」をクリック
+
+復旧ポイントを選択し、元の場所にリストア
+
+リストアジョブが開始され、完了後に内容が反映
+
+この方法なら、誤削除・ランサムウェア・システム障害にも対応可能です。
+
+? 詳細は NTT Smart Data Platformのガイド を参照。
+
+? 注意点とベストプラクティス3
+Microsoftはユーザー自身によるバックアップを推奨しています
+
